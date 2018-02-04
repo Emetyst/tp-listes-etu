@@ -2,7 +2,7 @@
 
 Ce TP a pour but de vous rafraîchir la mémoire sur la programmation en `C++` et
 la conception de structures de données. Il prépare une séquence de TP à venir
-sur les Skip-Lists qui sont une évolution des liste chaînées.
+sur les Skip-Lists qui sont une évolution des listes chaînées.
 
 ## Index
 
@@ -120,7 +120,7 @@ git push
 ```
 
 Cette commande vous demandera éventuellement de répondre à quelques questions la
-première fois pour renseigner votre identiré, et dans tous les cas vous
+première fois pour renseigner votre identité, et dans tous les cas vous
 demandera vos identifiants universitaires. Une fois votre travail poussé sur la
 forge, vous pouvez vérifier sur l'interface que vos fichiers ont bien été mis à
 jour.
@@ -153,7 +153,7 @@ fichiers, et ajoutez-y votre code.
 Une liste chaînée est une structure de données dont le but est de stocker une
 séquence de valeurs. La liste est composée d'un ensemble de *cellules*. Chaque
 cellule contient une valeur, ainsi que l'adresse de la cellule suivante. Une
-liste est généralement représentée par le schéma ci dessous.
+liste est généralement représentée par le schéma ci-dessous.
 
 ![Liste chaînée](/Images/liste.png)
 
@@ -197,7 +197,7 @@ Votre implémentation des listes chaînées devra fournir :
 <a name="recopie"></a>
 ### Recopie
 
-Votre liste manipule des cellules, dont elle se condière comme propriétaire. En
+Votre liste manipule des cellules, dont elle se considère comme propriétaire. En
 particulier, lors de sa destruction ou du retrait d'éléments, votre liste
 supprime toutes ses cellules avec elle.
 
@@ -354,7 +354,7 @@ les imbriquer (et donc de placer des `/* ... */` dans un commentaire) :
    sur deux lignes */
 ```
 
-Il est aussi possible en plus de rajouter de courts commentaire en utilisant `//`. 
+Il est aussi possible en plus de rajouter de courts commentaires en utilisant `//`. 
 Une fois écrit `//`, le reste de la ligne n'est plus interprété.
 
 ```cpp
@@ -371,7 +371,7 @@ types que vous serez le plus couramment ammenés à employer sont :
 
 * `int` des entiers positifs ou négatifs
 * `float` des nombres réels (rationnels en réalité) positifs ou négatifs
-* `char` des carractères
+* `char` des caractères
 
 Notez que tous ces types sont stockés sur un certain nombre d'octets que vous
 pouvez consulter via l'instruction `sizeof(type)`. Du fait que le nombre
@@ -388,7 +388,7 @@ la documentation du `C++`.
 <a name="case_memoire"></a>
 ### Cases mémoire
 
-Comme mentionné ci dessus, chaque type primitif est stocké sur un certain nombre
+Comme mentionné ci-dessus, chaque type primitif est stocké sur un certain nombre
 d'octets en mémoire. Lorsque vous écrirez :
 
 ```cpp
@@ -469,7 +469,7 @@ de `a` (c'est une copie), mais les deux variables ne sont pas liées pour autant
 Ainsi lorsqu'ensuite la valeur de `b` est changée pour `12` la valeur de `a`
 reste inchangée à `5`.
 
-Pour lier deux variables afin de faire en sortent qu'elles correspondent aux
+Pour lier deux variables afin de faire en sorte qu'elles correspondent aux
 mêmes octets en mémoire, il est possible d'utiliser des *références*. Une
 référence est réalisée en utilisant le symbole `&` ajouté au type d'une
 variable. Dans le code précédent, pour faire en sorte que la variable `b` soit
@@ -482,7 +482,7 @@ int & b = a ;
 b = 12 ;
 ```
 
-la valeur de la variable a est ici changée pour 12 lorsque b est affecté. Si
+la valeur de la variable `a` est ici changée pour 12 lorsque `b` est affectée. Si
 cette image vous aide, vous pouvez considérer qu'une référence consiste à donner
 un pseudonyme à une variable. Dans la suite du programme, le nom initial ou le
 pseudonyme peuvent tous les deux être utilisés pour les mêmes octets.
@@ -491,11 +491,11 @@ pseudonyme peuvent tous les deux être utilisés pour les mêmes octets.
 ### Passage par valeur
 
 On parle de *passage de paramètres* lorsqu'on appelle une fonction en lui
-fournissant des paramètres. Selon les langages de programmation, il existe de
+fournissant des paramètres. Selon les langages de programmation, il existe deux
 types de passage de paramètre :
 
 Le **passage par valeur** *recopie* la valeur fournie en paramètre à la fonction
-ou à la procédure. Ainsi, une fonction modifiant la valeur de ses paramètre ne
+ou à la procédure. Ainsi, une fonction modifiant la valeur de ses paramètres ne
 modifiera pas la valeur des variables utilisées pour fournir ces paramètres dans
 la fonction appelante. C'est cette stratégie qui est appliquée en `C++`.
 
@@ -531,14 +531,14 @@ Le nom *passage par nom* vient du fait qu'on considère que c'est le *nom* de la
 variable qui est fourni en paramètre, et qu'à partir du nom de la variable la
 donnée référencée est accessible.
 
-Pour plus de détails, vous pouvez utiliser les mots clé [call by
+Pour plus de détails, vous pouvez utiliser les mots clés [call by
 name](https://duckduckgo.com?q=call+by+name) et [call by
 value](https://duckduckgo.com?q=call+by+value) dans vos recherches. 
 
-Pour vous la conclusion à retenir est la suivante : **en `C++` le passage de paramètre 
+Pour vous la conclusion à retenir est la suivante : **en `C++` le passage de paramètres 
 est réalisé par valeur.**
 
-Vous pouvez cependant avoir de temps besoin d'avoir le même comportement que le
+Vous pouvez cependant avoir besoin de temps en temps du même comportement que le
 passage par nom, si vous souhaitez qu'une fonction modifie des données en dehors
 de sa portée, ou si vous voulez éviter la copie de données volumineuses passées
 en paramètre. Vous pouvez pour cela utiliser les références en paramètre de
@@ -748,7 +748,7 @@ Notez bien l'utilisation de `delete[]` pour faire écho à `new <type>[]`.
 
 Les classes et structures sont à la base de l'élaboration de structures de données
 complexes. Une classe (à votre niveau) permet d'agglomérer plusieurs types existants pour
-former de nouveaux types de données. Vous pourrez ajouter à votre classes des
+former de nouveaux types de données. Vous pourrez ajouter à votre classe des
 méthodes pour manipuler votre nouveau type de données. 
 
 
@@ -764,7 +764,7 @@ struct nom_structure {
 } ;
 ```
 
-Dans la définition d'une classe ou d'une structure, les mots clé `public` et
+Dans la définition d'une classe ou d'une structure, les mots clés `public` et
 `private` permettent de définir ce qui sera accessible ou non pour votre classe
 
 ```cpp
