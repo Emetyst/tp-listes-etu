@@ -9,11 +9,23 @@ Liste::Liste() {
 }
 
 Liste::Liste(const Liste& autre) {
-  Cellule* c_tmp = autre.adr_prem;
-  while (c_tmp != nullptr) {
-    ajouter_en_queue(c_tmp->valeur);
-    c_tmp = c_tmp->adr_suiv;
+  nb_elem = 0;
+
+  if (autre.taille() != 0) {
+    adr_prem = new Cellule(autre.tete()->valeur);
+    nb_elem++;
+
+    Cellule* c_tmp = autre.tete()->adr_suiv;
+    Cellule* adr_der = adr_prem;
+
+    while (c_tmp != nullptr) {
+      adr_der->adr_suiv = new Cellule(c_tmp->valeur);
+      c_tmp = c_tmp->adr_suiv;
+      adr_der = adr_der->adr_suiv;
+      nb_elem++;
+    }
   }
+  else adr_prem = nullptr;
 }
 
 Liste& Liste::operator=(const Liste& autre) {
@@ -21,12 +33,23 @@ Liste& Liste::operator=(const Liste& autre) {
   while (taille() != 0) {
     supprimer_en_tete();
   }
+  nb_elem = 0;
 
-  Cellule* c_tmp = autre.adr_prem;
-  while (c_tmp != nullptr) {
-    ajouter_en_queue(c_tmp->valeur);
-    c_tmp = c_tmp->adr_suiv;
+  if (autre.taille() != 0) {
+    adr_prem = new Cellule(autre.tete()->valeur);
+    nb_elem++;
+
+    Cellule* c_tmp = autre.tete()->adr_suiv;
+    Cellule* adr_der = adr_prem;
+
+    while (c_tmp != nullptr) {
+      adr_der->adr_suiv = new Cellule(c_tmp->valeur);
+      c_tmp = c_tmp->adr_suiv;
+      adr_der = adr_der->adr_suiv;
+      nb_elem++;
+    }
   }
+  else adr_prem = nullptr;
   return *this ;
 }
 
@@ -34,34 +57,33 @@ Liste::~Liste() {
   while (taille() != 0) {
     supprimer_en_tete();
   }
-
-  adr_prem = nullptr;
 }
 
 void Liste::ajouter_en_tete(int valeur) {
-  Cellule* c = new Cellule(valeur);
-  c->adr_suiv = tete();
+  Cellule* c = new Cellule(valeur, tete());
   adr_prem = c;
   nb_elem++;
 }
 
 void Liste::ajouter_en_queue(int valeur) {
+  Cellule* c = new Cellule(valeur);
   if (taille() == 0) {
-    ajouter_en_tete(valeur);
+    adr_prem = c;
   }
-  else {
-    Cellule* c = new Cellule(valeur);    
-    Cellule* c_tmp = queue();
-    c_tmp->adr_suiv = c;
+  else { 
+    Cellule* adr_der = queue();
+    adr_der->adr_suiv = c;
   }
   nb_elem++;
 }
 
 void Liste::supprimer_en_tete() {
-  Cellule* c_tmp = tete();
-  adr_prem = adr_prem->adr_suiv;
-  delete c_tmp;
-  nb_elem--;
+  if (taille() != 0) {
+    Cellule* c_tmp = tete();
+    adr_prem = adr_prem->adr_suiv;
+    delete c_tmp;
+    nb_elem--;
+  }
 }
 
 Cellule* Liste::tete() {
@@ -69,14 +91,11 @@ Cellule* Liste::tete() {
 }
 
 const Cellule* Liste::tete() const {
-  return adr_prem;
+  return (const Cellule*) adr_prem;
 }
 
 Cellule* Liste::queue() {
-  if (taille() == 0) {
-    return nullptr;
-  }
-
+  if (taille() == 0) return nullptr;
   else {
     Cellule* c_tmp = adr_prem;
     while (c_tmp->adr_suiv != nullptr) {
@@ -87,16 +106,13 @@ Cellule* Liste::queue() {
 }
 
 const Cellule* Liste::queue() const {
-  if (taille() == 0) {
-    return nullptr;
-  }
-
+  if (taille() == 0) return nullptr;
   else {
     Cellule* c_tmp = adr_prem;
-    while(c_tmp->adr_suiv != nullptr) {
-      c_tmp = c_tmp->adr_suiv;
+    while (c_tmp->adr_suiv != nullptr) {
+      c_tmp = c_tmp->adr_suiv; 
     }
-    return c_tmp;
+    return (const Cellule*) c_tmp;
   }
 }
 
@@ -105,29 +121,38 @@ int Liste::taille() const {
 }
 
 Cellule* Liste::recherche(int valeur) {
-  Cellule* c_tmp = adr_prem;
-  while (c_tmp != nullptr) {
-    if (c_tmp->valeur == valeur) return c_tmp;
-    else c_tmp = c_tmp->adr_suiv;
+  if (taille() == 0) return nullptr;
+  else {
+    Cellule* c_tmp = tete();
+    while (c_tmp != nullptr) {
+      if (c_tmp->valeur == valeur) break;
+      c_tmp = c_tmp->adr_suiv;
+    }
+    return c_tmp;
   }
-  return nullptr ;
 }
 
 const Cellule* Liste::recherche(int valeur) const {
-  Cellule* c_tmp = adr_prem;
-  while (c_tmp != nullptr) {
-    if (c_tmp->valeur == valeur) return c_tmp;
-    else c_tmp = c_tmp->adr_suiv;
+  if (taille() == 0) return nullptr;
+  else {
+    Cellule* c_tmp = adr_prem;
+    while (c_tmp != nullptr) {
+      if (c_tmp->valeur == valeur) break;
+      c_tmp = c_tmp->adr_suiv;
+    }
+    return (const Cellule*) c_tmp;
   }
-  return nullptr ;
 }
 
 void Liste::afficher() const {
-  Cellule* c_tmp = adr_prem;
   std::cout << "[";
-  while (c_tmp != nullptr) {
-    std::cout << " " << c_tmp->valeur;
-    c_tmp = c_tmp->adr_suiv;
+
+  if (taille() != 0) {
+    Cellule* c_tmp = adr_prem;
+    while (c_tmp != nullptr) {
+      std::cout << " " << c_tmp->valeur;
+      c_tmp = c_tmp->adr_suiv;
+    }
   }
   std::cout << " ]" << std::endl;
 }
