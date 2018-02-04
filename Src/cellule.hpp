@@ -3,8 +3,11 @@
 
 class Cellule {
 
-  /* votre code ici */
+  public:
+    int valeur;
+    Cellule* adr_suiv;
 
+    Cellule(int v = 0, Cellule* adr = nullptr);
 } ;
 
 #endif

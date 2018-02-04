@@ -48,7 +48,8 @@ class Liste {
 
   private :
 
-    /* votre code ici */
+    Cellule* adr_prem;
+    int nb_elem;
 
 } ;
 
